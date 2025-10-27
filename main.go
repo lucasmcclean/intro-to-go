@@ -27,10 +27,8 @@ func main() {
 	}()
 
 	var wg sync.WaitGroup
-	wg.Add(1)
 
-	go func() {
-		defer wg.Done()
+	wg.Go(func() {
 		<-ctx.Done()
 		shutdownCtx := context.Background()
 		shutdownCtx, cancel := context.WithTimeout(shutdownCtx, 10*time.Second)
@@ -39,7 +37,7 @@ func main() {
 		if err != nil {
 			fmt.Printf("Error shutting down server: %s\n", err)
 		}
-	}()
+	})
 
 	wg.Wait()
 }
