@@ -1,12 +1,11 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/lucasmcclean/intro-to-go/routes"
 )
 
 func addRoutes(mux *http.ServeMux) {
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Hello, World!")
-	})
+	mux.HandleFunc("/duplicate", routes.DuplicateEntries)
 }
