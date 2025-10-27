@@ -9,7 +9,7 @@ type DuplicateRequest struct {
 	Entries []int `json:"entries"`
 }
 
-func DuplicateEntries(w http.ResponseWriter, r *http.Request) {
+func DuplicateHandler(w http.ResponseWriter, r *http.Request) {
 	var request DuplicateRequest
 
 	err := json.NewDecoder(r.Body).Decode(&request)
@@ -32,6 +32,6 @@ func DuplicateEntries(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	if err := json.NewEncoder(w).Encode(response); err != nil {
-		http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
+		http.Error(w, "error encoding JSON", http.StatusInternalServerError)
 	}
 }

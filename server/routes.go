@@ -7,5 +7,6 @@ import (
 )
 
 func addRoutes(mux *http.ServeMux) {
-	mux.HandleFunc("/duplicate", routes.DuplicateEntries)
+	mux.HandleFunc("/duplicate", routes.DuplicateHandler)
+	mux.HandleFunc("/mix", routes.MixHandler)
 }
