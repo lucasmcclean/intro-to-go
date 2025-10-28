@@ -1,12 +1,10 @@
 package routes
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"sync"
-	"time"
 )
 
 type JobRequest struct {
@@ -22,36 +20,18 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancel()
+	// TODO: Create a context
 
+	// TODO: Make a job queue
 	jobs := make(chan int, 3)
-
-	var wg sync.WaitGroup
 
 	results := make([]string, 0)
 	resultsMu := sync.Mutex{}
 
-	worker := func(id int) {
+	// TODO: Create a worker function to handle jobs
+	var wg sync.WaitGroup
+	worker := func(_ int) {
 		defer wg.Done()
-		for {
-			select {
-			case <-ctx.Done():
-				resultsMu.Lock()
-				results = append(results, fmt.Sprintf("worker %d: stopping", id))
-				resultsMu.Unlock()
-				return
-			case job, ok := <-jobs:
-				if !ok {
-					return
-				}
-				resultsMu.Lock()
-				results = append(results, fmt.Sprintf("worker %d: got job %d", id, job))
-				resultsMu.Unlock()
-				time.Sleep(300 * time.Millisecond)
-				results = append(results, fmt.Sprintf("worker %d: completed job %d", id, job))
-			}
-		}
 	}
 
 	for i := 1; i <= req.Workers; i++ {
@@ -59,16 +39,14 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 		go worker(i)
 	}
 
+	// Add jobs to the queue if there's room
 	for j := 1; j <= req.Jobs; j++ {
 		select {
 		case jobs <- j:
 			resultsMu.Lock()
 			results = append(results, fmt.Sprintf("sent job %d", j))
 			resultsMu.Unlock()
-		case <-time.After(200 * time.Millisecond):
-			resultsMu.Lock()
-			results = append(results, fmt.Sprintf("queue full, dropping job %d", j))
-			resultsMu.Unlock()
+			// TODO: Handle the case of no room
 		}
 	}
 
@@ -84,3 +62,4 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "error encoding JSON", http.StatusInternalServerError)
 	}
 }
+

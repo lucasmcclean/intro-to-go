@@ -1,37 +1,26 @@
 package routes
 
 import (
-	"encoding/json"
 	"net/http"
 )
 
+// TODO: Create a request struct
 type DuplicateRequest struct {
 	Entries []int `json:"entries"`
 }
 
 func DuplicateHandler(w http.ResponseWriter, r *http.Request) {
+	// TODO: Decode the request
 	var request DuplicateRequest
 
-	err := json.NewDecoder(r.Body).Decode(&request)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
+	// TODO: Create a response
 
-	response := struct {
-		DuplicatedEntries []int `json:"entries"`
-	}{
-		DuplicatedEntries: make([]int, 0, len(request.Entries)*2),
-	}
-
-	for _, entry := range request.Entries {
-		response.DuplicatedEntries = append(response.DuplicatedEntries, entry, entry)
+	// TODO: Copy request entries into response
+	for range request.Entries {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 
-	if err := json.NewEncoder(w).Encode(response); err != nil {
-		http.Error(w, "error encoding JSON", http.StatusInternalServerError)
-	}
+	// TODO: Encode the response
 }

@@ -11,12 +11,10 @@ func New() *http.Server {
 
 	addRoutes(mux)
 
-	handler := middleware.CORS(mux)
+	_ = middleware.CORS(mux)
 
-	srv := &http.Server{
-		Addr:    ":8080",
-		Handler: handler,
-	}
+	// TODO: Create the http server and return it
 
-	return srv
+	return nil
 }
+
