@@ -22,7 +22,7 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
 	jobs := make(chan int, 3)
@@ -49,6 +49,7 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 				results = append(results, fmt.Sprintf("worker %d: got job %d", id, job))
 				resultsMu.Unlock()
 				time.Sleep(300 * time.Millisecond)
+				results = append(results, fmt.Sprintf("worker %d: completed job %d", id, job))
 			}
 		}
 	}
