@@ -22,7 +22,7 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	ctx, cancel := context.WithTimeout(r.Context(), 1*time.Second)
 	defer cancel()
 
 	jobs := make(chan int, 3)
@@ -84,3 +84,4 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "error encoding JSON", http.StatusInternalServerError)
 	}
 }
+

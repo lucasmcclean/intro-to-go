@@ -53,7 +53,7 @@ type MixRequest struct {
 
 func MixHandler(w http.ResponseWriter, r *http.Request) {
 	var req MixRequest
-	
+
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, "invalid JSON", http.StatusBadRequest)
 		return
