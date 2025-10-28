@@ -2,16 +2,21 @@ package server
 
 import (
 	"net/http"
+
+	"github.com/lucasmcclean/intro-to-go/middleware"
 )
 
 func New() *http.Server {
-	// Create a mux
+	mux := http.NewServeMux()
 
-	// Add routes to mux
+	addRoutes(mux)
 
-	// Create server on 8080
+	handler := middleware.CORS(mux)
 
-	// Return the server
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: handler,
+	}
 
-	return nil
+	return srv
 }
