@@ -2,6 +2,8 @@
 
 > Knight Hacks workshop on developing web servers with Go.
 
+> 2025-10-28 16:30 EDT
+
 ## 1. Install Go
 
 - Download and install from [https://go.dev/dl/](https://go.dev/dl/)
