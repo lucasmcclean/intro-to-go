@@ -5,14 +5,13 @@ import (
 )
 
 func New() *http.Server {
-	mux := http.NewServeMux()
+	// Create a mux
 
-	addRoutes(mux)
+	// Add routes to mux
 
-	srv := &http.Server{
-		Addr:    ":8080",
-		Handler: mux,
-	}
+	// Create server on 8080
 
-	return srv
+	// Return the server
+
+	return nil
 }
