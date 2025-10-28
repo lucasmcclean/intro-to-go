@@ -1,56 +1,79 @@
 package main
 
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"log"
+	"math"
+	"math/rand"
+	"net/http"
+	"os"
+	"strings"
+	"sync"
+	"time"
+)
+
 // --- Go Standard Library ---
 
-// - fmt
-// fmt.Println("Hello, World!")
-// fmt.Sprintf("value: %d", x)
+func main() {
+	x := 0
+	fmt.Println("Hello, World!")
+	fmt.Sprintf("value: %d", x)
 
-// - strings
-// strings.ToUpper("go")
-// strings.Split("a,b,c", ",")
+	// - strings
+	strings.ToUpper("go")
+	strings.Split("a,b,c", ",")
 
-// - time
-// time.Now()
-// time.Sleep(2 * time.Second)
-// time.Since(start)
+	// - time
+	start := time.Now()
+	time.Sleep(2 * time.Second)
+	time.Since(start)
 
-// - os
-// os.Getenv("HOME")
-// os.Open("file.txt")
-// os.Exit(1)
+	// - os
+	os.Getenv("HOME")
+	os.Open("file.txt")
+	os.Exit(1)
 
-// - encoding/json
-// json.Marshal(v)
-// json.Unmarshal(data, &v)
+	// - encoding/json
+	v := struct {
+		Yup int `json:"yup"`
+	}{
+		Yup: 1,
+	}
+	json.Marshal(v)
 
-// - net/http
-// http.HandleFunc("/hello", handler)
-// http.ListenAndServe(":8080", nil)
-// http.Get("https://example.com")
+	data := make([]byte, 10)
+	json.Unmarshal(data, &v)
 
-// - context
-// ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-// <-ctx.Done()
+	// - net/http
+	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {})
+	http.ListenAndServe(":8080", nil)
+	http.Get("https://example.com")
 
-// - sync
-// var mu sync.Mutex
-// mu.Lock(); defer mu.Unlock()
-// var wg sync.WaitGroup; wg.Add(1); go func() { defer wg.Done() }()
+	// - context
+	ctx, _ := context.WithTimeout(context.Background(), time.Second)
+	<-ctx.Done()
 
-// - io
-// io.Copy(dst, src)
-// io.ReadAll(resp.Body)
+	// - sync
+	var mu sync.Mutex
+	mu.Lock()
+	defer mu.Unlock()
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() { defer wg.Done() }()
 
-// - log
-// log.Println("info message")
-// log.Printf("formatted: %d", n)
+	// - log
+	log.Println("info message")
+	log.Printf("formatted: %d", 1)
 
-// - math
-// math.Sqrt(16)
-// rand.Intn(10)
+	// - math
+	math.Sqrt(16)
+	rand.Intn(10)
 
-// - errors
-// errors.New("something went wrong")
-// fmt.Errorf("wrap: %w", err)
-// errors.Is(err, target)
+	// - errors
+	err := errors.New("something went wrong")
+	target := fmt.Errorf("wrap: %w", err)
+	errors.Is(err, target)
+}

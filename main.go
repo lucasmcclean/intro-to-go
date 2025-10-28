@@ -12,7 +12,7 @@ import (
 	"github.com/lucasmcclean/intro-to-go/server"
 )
 
-func main() {
+func _main() {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
 
