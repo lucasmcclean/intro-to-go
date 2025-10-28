@@ -41,6 +41,25 @@ go mod init my-go-workshop
 go mod tidy
 ```
 
+## 4. Run the Project
+
+- To run the UI (optional):
+
+```bash
+cd frontend
+npm run dev
+```
+
+- Visit `localhost:5173` in your browser
+
+- To run the server:
+
+```bash
+go run .
+```
+
+- The endpoint is `localhost:8080` by default
+
 ## Encountering Issues?
 
 Feel free to raise your hand or ask a neighbour for help. Worst-case scenario,
