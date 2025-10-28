@@ -23,7 +23,7 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: Create a context
 
 	// TODO: Make a job queue
-	jobs := make(chan int, 3)
+	var jobs chan int
 
 	results := make([]string, 0)
 	resultsMu := sync.Mutex{}
@@ -62,4 +62,3 @@ func JobsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "error encoding JSON", http.StatusInternalServerError)
 	}
 }
-

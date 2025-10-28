@@ -6,9 +6,6 @@ import (
 )
 
 // TODO: Create the mixer interface
-type Mixer interface {
-	Mix() string
-}
 
 // TODO: Create the left, right, and weave mixer structs
 
@@ -28,12 +25,13 @@ func MixHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var mixer Mixer
+	// var mixer Mixer
+
 	// TODO: Switch on "how" and run the mixer
 
-	result := mixer.Mix()
+	// result := mixer.Mix()
 
-	response := map[string]string{"result": result}
+	var response map[string]string
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -42,4 +40,3 @@ func MixHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "error encoding JSON", http.StatusInternalServerError)
 	}
 }
-

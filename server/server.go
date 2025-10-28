@@ -9,12 +9,9 @@ import (
 func New() *http.Server {
 	mux := http.NewServeMux()
 
-	addRoutes(mux)
-
 	_ = middleware.CORS(mux)
 
 	// TODO: Create the http server and return it
 
 	return nil
 }
-
